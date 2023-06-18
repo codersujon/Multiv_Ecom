@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
 //Admin 
 Route::controller(AdminController::class)->group(function(){
     Route::get('/admin/login', 'adminLogin')->name('admin.login');
@@ -39,6 +40,8 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::controller(AdminController::class)->group(function(){
         Route::get('/admin/dashboard', 'adminDashboard')->name('admin.dashboard');
         Route::get('/admin/logout', 'adminDestroy')->name('admin.logout');
+        Route::get('/admin/profile', 'adminProfile')->name('admin.profile');
+        Route::post('/admin/profile/update', 'adminProfileUpdate')->name('admin.profile.update');
     });
 });
 
