@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VendorController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,15 +30,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+//Admin 
+Route::controller(AdminController::class)->group(function(){
+    Route::get('/admin/login', 'adminLogin')->name('admin.login');
+});
 
-//Admin
 Route::middleware(['auth','role:admin'])->group(function(){
     Route::controller(AdminController::class)->group(function(){
         Route::get('/admin/dashboard', 'adminDashboard')->name('admin.dashboard');
+        Route::get('/admin/logout', 'adminDestroy')->name('admin.logout');
     });
 });
 
-//Vendor
+//Vendor 
 Route::middleware(['auth', 'role:vendor'])->group(function(){
     Route::controller(VendorController::class)->group(function(){
         Route::get('/vendor/dashboard', 'vendorDashboard')->name('vendor.dashboard');
