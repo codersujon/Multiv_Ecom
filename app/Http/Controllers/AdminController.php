@@ -9,12 +9,6 @@ use App\Models\User;
 
 class AdminController extends Controller
 {
-     /**
-     * Admin Dashboard
-     */
-    public function adminDashboard(){
-        return view('admin.index');
-    } 
 
      /**
      * Admin Login
@@ -25,6 +19,13 @@ class AdminController extends Controller
 
 
      /**
+     * Admin Dashboard
+     */
+    public function adminDashboard(){
+        return view('admin.index');
+    } 
+
+     /**
      * Admin Profile
      */
     public function adminProfile(){
@@ -32,6 +33,8 @@ class AdminController extends Controller
         $adminInfo = User::find($id);
         return view('admin.admin_profile', compact('adminInfo'));
     }
+
+    
 
      /**
      * Admin Profile Update
@@ -55,7 +58,26 @@ class AdminController extends Controller
         $user->phone = $request->phone;
         $user->address = $request->address;
         $user->update();
-        return redirect()->back();
+        $notification = array(
+            'message' => "Admin Profile Updated Successfully!",
+            'alert-type' => "success",
+        ); 
+        return redirect()->back()->with($notification);
+    }
+
+
+     /**
+     * Admin Change Password
+     */
+    public function AdminChangePassword(){
+       return view('admin.admin_change_password');
+    }
+
+     /**
+     * Admin Password Update
+     */
+    public function AdminUpdatePassword(Request $request){
+       
     }
 
 
