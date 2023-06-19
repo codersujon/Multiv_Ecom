@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -16,7 +17,6 @@ class AdminController extends Controller
     public function adminLogin(){
         return view('admin.admin_login');
     }
-
 
      /**
      * Admin Dashboard
@@ -34,8 +34,6 @@ class AdminController extends Controller
         return view('admin.admin_profile', compact('adminInfo'));
     }
 
-    
-
      /**
      * Admin Profile Update
      */
@@ -48,7 +46,7 @@ class AdminController extends Controller
 
         $customName ="";
         if($file = $request->file('photo')){
-            
+
             $customName =  date('YmdHi').'.'.$file->getClientOriginalExtension();
             @unlink(public_path('upload/admin/images/'.$user->photo));
             $file->move(public_path('upload/admin/images/'),$customName);
@@ -70,7 +68,6 @@ class AdminController extends Controller
         return redirect()->back()->with($notification);
     }
 
-
      /**
      * Admin Change Password
      */
@@ -83,8 +80,18 @@ class AdminController extends Controller
      */
     public function AdminUpdatePassword(Request $request){
        
-    }
+        // Match the Old Password
+        if(!Hash::check($request->old_password, Auth::user()->password)){
+            return back()->with('error', "Old Password Doesn't Match!!");
+        }
 
+        // Update the Password
+        User::whereId(Auth::user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+ 
+        return back()->with('status', "Password Updated Successfully!");
+    }
 
     /**
      * Destroy an authenticated session.

@@ -35,6 +35,33 @@
                                 <form action="{{ route('admin.update.password') }}" method="POST">
                                     @csrf
 
+                                    {{-- Message --}}
+                                    @if (session('status'))
+                                        <div class="alert border-0 border-start border-5 border-success alert-dismissible fade show py-2">
+                                            <div class="d-flex align-items-center">
+                                                <div class="font-35 text-success"><i class="bx bxs-check-circle"></i>
+                                                </div>
+                                                <div class="ms-3">
+                                                    <h6 class="mb-0 text-success">Success</h6>
+                                                    <div>{{ session('status') }}</div>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    @elseif(session('error'))
+                                        <div class="alert border-0 border-start border-5 border-danger alert-dismissible fade show py-2">
+                                            <div class="d-flex align-items-center">
+                                                <div class="font-35 text-danger"><i class="bx bxs-message-square-x"></i>
+                                                </div>
+                                                <div class="ms-3">
+                                                    <h6 class="mb-0 text-danger">Danger</h6>
+                                                    <div>{{ session('error') }}</div>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    @endif
+
                                     <div class="row mb-3">
                                         <label for="current_password" class="col-sm-3 col-form-label">Old
                                             Password</label>
@@ -47,7 +74,7 @@
                                         <label for="new_password" class="col-sm-3 col-form-label">New
                                             Password</label>
                                         <div class="col-sm-9">
-                                            <input type="password" class="form-control" id="new_password"
+                                            <input type="password" class="form-control" name="new_password" id="new_password"
                                                 placeholder="New Password">
                                         </div>
                                     </div>
@@ -64,7 +91,7 @@
                                     <div class="row">
                                         <label class="col-sm-3 col-form-label"></label>
                                         <div class="col-sm-9">
-                                            <button type="submit" class="btn btn-primary px-5">Register</button>
+                                            <button type="submit" class="btn btn-primary px-5">Update Password</button>
                                         </div>
                                     </div>
 
