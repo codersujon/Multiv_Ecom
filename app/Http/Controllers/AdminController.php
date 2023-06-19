@@ -45,12 +45,16 @@ class AdminController extends Controller
 
         $user->name = strtoupper($request->name);
 
+
         $customName ="";
-        if($request->file('photo')){
-            $file = $request->file('photo');
+        if($file = $request->file('photo')){
+            
             $customName =  date('YmdHi').'.'.$file->getClientOriginalExtension();
             @unlink(public_path('upload/admin/images/'.$user->photo));
             $file->move(public_path('upload/admin/images/'),$customName);
+
+        }else{
+            $customName =  $user->photo;
         }
 
         $user->photo = $customName;
@@ -58,6 +62,7 @@ class AdminController extends Controller
         $user->phone = $request->phone;
         $user->address = $request->address;
         $user->update();
+
         $notification = array(
             'message' => "Admin Profile Updated Successfully!",
             'alert-type' => "success",
