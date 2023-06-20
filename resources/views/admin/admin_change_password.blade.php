@@ -1,7 +1,5 @@
 @extends('admin.admin_dashboard');
 
-
-
 @section('main-content')
 
 <div class="page-content">
