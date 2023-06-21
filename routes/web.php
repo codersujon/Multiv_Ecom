@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend.index');
 });
 
 Route::get('/dashboard', function () {
@@ -29,7 +29,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
 
 //Admin 
 Route::controller(AdminController::class)->group(function(){
@@ -46,7 +45,6 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::post('/admin/update/password', 'AdminUpdatePassword')->name('admin.update.password');
     });
 });
-
 
 //Vendor 
 Route::controller(VendorController::class)->group(function(){
