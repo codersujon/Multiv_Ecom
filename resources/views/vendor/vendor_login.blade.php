@@ -37,9 +37,9 @@
                                             <form class="row g-3" method="POST" action="{{ route('login') }}">
                                                 @csrf
                                                 <div class="col-12">
-                                                    <label for="email" class="form-label">Email Address</label>
-                                                    <input type="email" class="form-control" id="email"
-                                                        placeholder="Email Address" name="email">
+                                                    <label for="login" class="form-label">Username / Phone</label>
+                                                    <input type="text" class="form-control" id="login"
+                                                        placeholder="Username / Phone" name="login">
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="password" class="form-label">Enter
