@@ -25,9 +25,9 @@
                 <div class="menu-title">Brand</div>
             </a>
             <ul>
-                <li> <a href="app-emailbox.html"><i class="bx bx-right-arrow-alt"></i>Email</a>
+                <li> <a href="app-emailbox.html"><i class="bx bx-right-arrow-alt"></i>All Brand</a>
                 </li>
-                <li> <a href="app-chat-box.html"><i class="bx bx-right-arrow-alt"></i>Chat Box</a>
+                <li> <a href="app-chat-box.html"><i class="bx bx-right-arrow-alt"></i>Add Brand</a>
                 </li>
             </ul>
         </li>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VendorController;
@@ -45,6 +46,11 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::post('/admin/update/password', 'AdminUpdatePassword')->name('admin.update.password');
     });
 });
+
+
+//Brand
+
+
 
 //Vendor 
 Route::controller(VendorController::class)->group(function(){
