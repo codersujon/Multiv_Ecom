@@ -1,4 +1,4 @@
-@extends('admin.admin_dashboard');
+@extends('admin.master');
 
 @section('main-content')
 
