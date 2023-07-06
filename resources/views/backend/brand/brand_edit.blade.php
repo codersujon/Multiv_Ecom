@@ -6,13 +6,13 @@
     <div class="page-content">
         <!--breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Add Brand</div>
+            <div class="breadcrumb-title pe-3">Edit Brand</div>
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Add Brand</li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Brand</li>
                     </ol>
                 </nav>
             </div>
@@ -24,7 +24,7 @@
                     <div class="col-lg-10">
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('store.brand') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('update.brand',$brand->id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                
                                 <div class="row mb-3">
@@ -32,7 +32,7 @@
                                         <h6 class="mb-0">Brand Name</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="text" class="form-control" placeholder="Enter Brand Name" name="brand_name" id="brand_name"/>
+                                        <input type="text" class="form-control" value="{{ $brand->brand_name }}" name="brand_name" id="brand_name"/>
                                     </div>
                                 </div>
 
@@ -50,7 +50,7 @@
                                         <h6 class="mb-0"></h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <img src="{{ url('upload/2.png') }}" alt="Admin"
+                                        <img src="{{ asset('upload/brand/'.$brand->brand_image) }}" alt="Admin"
                                         class="rounded-circle p-1" style="width: 120px; height: 120px" id="show_image">
                                     </div>
                                 </div>
@@ -58,7 +58,7 @@
                                 <div class="row">
                                     <div class="col-sm-3"></div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="submit" class="btn btn-primary px-4" value="Save Changes" />
+                                        <input type="submit" class="btn btn-info px-4" value="Update Brand" />
                                     </div>
                                 </div>
 

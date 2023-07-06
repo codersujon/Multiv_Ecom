@@ -47,13 +47,15 @@ Route::middleware(['auth','role:admin'])->group(function(){
     });
 });
 
-
+//Brand 
 Route::middleware(['auth','role:admin'])->group(function(){
     
     Route::controller(BrandController::class)->group(function(){
         Route::get('/all/brand', 'allBrand')->name('all.brand');
         Route::get('/add/brand', 'addBrand')->name('add.brand');
         Route::post('/store/brand', 'storeBrand')->name('store.brand');
+        Route::get('/edit/brand/{id}', 'editBrand')->name('edit.brand');
+        Route::post('/update/brand/{id}', 'updateBrand')->name('update.brand');
     });
 
 });

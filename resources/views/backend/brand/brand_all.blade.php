@@ -41,7 +41,7 @@
                                         <img src="{{ (!empty($brand->brand_image)? url('upload/brand/'.$brand->brand_image): url('upload/2.png')) }}" alt="{{ $brand->brand_name }}" width="80" height="40">
                                     </td>
                                     <td>
-                                        <a href="" class="btn btn-sm btn-info">Edit</a>
+                                        <a href="{{ route('edit.brand',$brand->id) }}" class="btn btn-sm btn-info">Edit</a>
                                         <a href="" class="btn btn-sm btn-danger">Delete</a>
                                     </td>
                                 </tr>
