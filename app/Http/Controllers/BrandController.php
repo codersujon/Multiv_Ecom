@@ -96,9 +96,8 @@ class BrandController extends Controller
         return redirect()->route('all.brand')->with($notification);
     }
     
-
-     //Delete Brand
-     public function deleteBrand($id){
+    //Delete Brand
+    public function deleteBrand($id){
         $brand = Brand::findOrFail($id);
         @unlink(public_path("upload/brand/".$brand->brand_image));
 

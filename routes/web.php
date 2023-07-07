@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
@@ -49,7 +50,6 @@ Route::middleware(['auth','role:admin'])->group(function(){
 
 //Brand 
 Route::middleware(['auth','role:admin'])->group(function(){
-    
     Route::controller(BrandController::class)->group(function(){
         Route::get('/all/brand', 'allBrand')->name('all.brand');
         Route::get('/add/brand', 'addBrand')->name('add.brand');
@@ -58,7 +58,18 @@ Route::middleware(['auth','role:admin'])->group(function(){
         Route::post('/update/brand/{id}', 'updateBrand')->name('update.brand');
         Route::get('/delete/brand/{id}', 'deleteBrand')->name('delete.brand');
     });
+});
 
+//Category 
+Route::middleware(['auth','role:admin'])->group(function(){
+    Route::controller(CategoryController::class)->group(function(){
+        Route::get('/all/category', 'index')->name('all.category');
+        Route::get('/add/category', 'create')->name('add.category');
+        Route::post('/store/category', 'store')->name('store.category');
+        Route::get('/edit/brand/{id}', 'editBrand')->name('edit.brand');
+        Route::post('/update/brand/{id}', 'updateBrand')->name('update.brand');
+        Route::get('/delete/category/{id}', 'destroy')->name('delete.category');
+    });
 });
 
 
