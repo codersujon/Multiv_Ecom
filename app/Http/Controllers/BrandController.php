@@ -26,6 +26,7 @@ class BrandController extends Controller
         
         $brands = new Brand();
         
+        // For Image
         $customName="";
         if ($file = $request->file('photo')) {
 
@@ -38,11 +39,14 @@ class BrandController extends Controller
             $customName = $brands->brand_image;
         }
 
-        $brands->brand_name = $request->brand_name;
-        $brands->brand_slug = strtolower(str_replace(' ', '-', $request->brand_name));
-        $brands->brand_image = $customName;
-        $brands->save();
+        // Using Query Builder
+        DB::table('brands')->insert([
+            "brand_name"=> $request->brand_name,
+            "brand_slug"=> strtolower(str_replace(' ', '-', $request->brand_name)),
+            "brand_image"=> $customName,
+        ]);
 
+        // For Message
         $notification = array(
             'message' => "Brand Added Successfully!",
             'alert-type' => "success",
@@ -53,16 +57,14 @@ class BrandController extends Controller
 
     //Edit Brand
     public function editBrand($id){
-        $brand = Brand::findOrFail($id);
+        // Using Query Builder
+        $brand = DB::table('brands')->find($id);
         return view('backend.brand.brand_edit', compact('brand'));
     }
 
     //Update Brand
     public function updateBrand(Request $request, $id){
-
-        $brand = Brand::find($id);
-        $brand->brand_name = $request->brand_name;
-        $brand->brand_slug = strtolower(str_replace(' ', '-', $request->brand_name));
+        $brand = new Brand();
 
         $customName="";
         if ($file = $request->file('photo')) {
@@ -76,16 +78,38 @@ class BrandController extends Controller
             $customName = $brand->brand_image;
         }
 
-        $brand->brand_image = $customName;
-        $brand->update();
+        // Using Query Builder
+        DB::table('brands')
+            ->where('id', $id)
+            ->update([
+                "brand_name" => $request->brand_name,
+                "brand_slug" => strtolower(str_replace(' ', '-', $request->brand_name)),
+                "brand_image" => $customName,
+            ]);
 
+
+        // For Message
         $notification = array(
             'message' => "Brand Updated Successfully!",
             'alert-type' => "success",
         ); 
         return redirect()->route('all.brand')->with($notification);
     }
+    
 
+     //Delete Brand
+     public function deleteBrand($id){
+        $brand = Brand::findOrFail($id);
+        @unlink(public_path("upload/brand/".$brand->brand_image));
 
+        DB::table('brands')
+            ->where('id', $id)
+            ->delete();
 
+        $notification = array(
+            'message' => "Brand Deleted Successfully!",
+            'alert-type' => "success",
+        ); 
+        return redirect()->route('all.brand')->with($notification);
+    }
 }
